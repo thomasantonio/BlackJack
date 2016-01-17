@@ -25,7 +25,7 @@ public class TestGame {
 			printData(dplayer);
 
 			System.out.println("");
-			System.out.println("New Game? (y/n)");
+			System.out.println("New Round? (y/n)");
 			if (GetInput().equals("n"))
 				gameBool = true;
 		}
@@ -77,6 +77,7 @@ public class TestGame {
 
 	//Setzt Karten Für jeden spieler.
 	public static void setPlayerCards(ArrayList<DealerPlayer> dplayer,  int[] cardDeck,int counter, int round){
+		int playerCount = 0;
 		Value value = new Value();
 		boolean gameBool = false;
 
@@ -86,27 +87,33 @@ public class TestGame {
 		while (gameBool == false){
 			for (DealerPlayer dp : dplayer){
 				if(2*dplayer.size() > counter){
-					dp.setMyCards(cardDeck[counter]);
-					counter ++;
+					for(int i = 0; i <= 1; i++){
+						dp.setMyCards(cardDeck[counter]);
+						counter ++;
+					}
 				}
-				if(round >= 3 && value.getValue(dp.getMyCards()) <= 20 && dp instanceof Player){	//Fragt nach noch einer Karte aber erst ab runde 2 und nur wenn der aktuelle Karten wert 21 nicht überschreitet.
+				if(round >= 2 && value.getValue(dp.getMyCards()) < 21 && dp instanceof Player){	//Fragt nach noch einer Karte aber erst ab runde 2 und nur wenn der aktuelle Karten wert 21 nicht überschreitet.
 					System.out.println(dp.getName() +" One more Card? (y/n)");
 					String input = GetInput();
 					if (input.equals("y")){
 						dp.setMyCards(cardDeck[counter]);
 						counter ++;
 					}
+					if(input.equals("n") || value.getValue(dp.getMyCards()) > 21){
+						playerCount ++;
+					}
 				}
-				if(round >= 3 && dp instanceof Dealer && value.getValue(dp.getMyCards()) <=16){
-					dp.setMyCards(cardDeck[counter]);
-					counter ++;
+				if(playerCount == dplayer.size()-1 && dp instanceof Dealer){
+					while(value.getValue(dp.getMyCards()) <=16){
+						dp.setMyCards(cardDeck[counter]);
+						counter ++;
+					}
 				}
 			}
 
 			printData(dplayer);
 			System.out.println("");
-			System.out.println("Next Round? (y/n)");
-			if (GetInput().equals("n")){
+			if (playerCount == dplayer.size()-1){
 				gameBool = true;
 			}
 			round ++;
