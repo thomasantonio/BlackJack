@@ -8,7 +8,7 @@ public class Value {
 		int j = 0;
 		for (int i: cards){
 			if(i == 0){
-				if(j+i+1 >= 21)
+				if(j+11 > 21)
 					j=j+1;
 				else
 					j = j + 11;

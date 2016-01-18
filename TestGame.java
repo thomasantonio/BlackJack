@@ -99,7 +99,7 @@ public class TestGame {
 						dp.setMyCards(cardDeck[counter]);
 						counter ++;
 					}
-					if(input.equals("n") || value.getValue(dp.getMyCards()) > 21){
+					if(input.equals("n") || value.getValue(dp.getMyCards()) >= 21){
 						playerCount ++;
 					}
 				}
