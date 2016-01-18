@@ -18,6 +18,16 @@ public class Value {
 		}
 		return j;
 	}
+	
+	public boolean getAss(ArrayList<Integer> cards){
+		boolean bool = false;
+		for (int i: cards){
+			if(i==0)
+				bool = true;
+		}
+		
+		return bool;
+	}
 
 	public boolean getBlackJack(ArrayList<Integer> cards){
 		if(getValue(cards) == 21)

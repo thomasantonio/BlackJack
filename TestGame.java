@@ -92,7 +92,8 @@ public class TestGame {
 						counter ++;
 					}
 				}
-				if(round >= 2 && value.getValue(dp.getMyCards()) < 21 && dp instanceof Player){	//Fragt nach noch einer Karte aber erst ab runde 2 und nur wenn der aktuelle Karten wert 21 nicht überschreitet.
+				
+				if(round >= 2 && value.getValue(dp.getMyCards()) < 21 && dp instanceof Player || value.getAss(dp.getMyCards())){	//Fragt nach noch einer Karte aber erst ab runde 2 und nur wenn der aktuelle Karten wert 21 nicht überschreitet.
 					System.out.println(dp.getName() +" One more Card? (y/n)");
 					String input = GetInput();
 					if (input.equals("y")){
